@@ -1,6 +1,7 @@
 package com.uniqueWords.uniqueWords.service;
 
 import com.uniqueWords.uniqueWords.entity.Word;
+import com.uniqueWords.uniqueWords.util.URL;
 import com.uniqueWords.uniqueWords.util.WordsCounter;
 import org.jsoup.Jsoup;
 import org.junit.jupiter.api.Assertions;
@@ -66,9 +67,6 @@ class WordsCounterTest {
     void testRegex()
     {
         url = "http://dwa-ddd3-21234234w.com/";
-        String regexOfDomainName = "";
-        String regexOfDash ="\\-";
-        //url = "http://ddw.ru/";
         Pattern pattern = Pattern.compile(
                 "^http://([a-z0-9]-?)+\\.([a-z0-9]{2,})/$");
         Matcher matcher = pattern.matcher(url);
@@ -77,10 +75,5 @@ class WordsCounterTest {
         {
             System.out.println(matcher.group());
         }
-
-        //Assertions.assertTrue(matcher.find());
-
-        //System.out.println(matcher.group());
-
     }
 }
