@@ -3,7 +3,7 @@ package com.uniqueWords.uniqueWords.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uniqueWords.uniqueWords.entity.Word;
-import com.uniqueWords.uniqueWords.util.URL;
+import com.uniqueWords.uniqueWords.correctObjects.URL;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +18,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.Writer;
-import java.nio.charset.Charset;
 import java.util.List;
 
 @SpringBootTest

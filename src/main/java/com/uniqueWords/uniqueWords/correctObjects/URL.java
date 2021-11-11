@@ -1,4 +1,4 @@
-package com.uniqueWords.uniqueWords.util;
+package com.uniqueWords.uniqueWords.correctObjects;
 
 import javax.validation.constraints.Pattern;
 

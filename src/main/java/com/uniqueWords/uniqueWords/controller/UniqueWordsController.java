@@ -2,7 +2,7 @@ package com.uniqueWords.uniqueWords.controller;
 
 import com.uniqueWords.uniqueWords.entity.Word;
 import com.uniqueWords.uniqueWords.service.WordService;
-import com.uniqueWords.uniqueWords.util.URL;
+import com.uniqueWords.uniqueWords.correctObjects.URL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

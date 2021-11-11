@@ -1,21 +1,12 @@
 package com.uniqueWords.uniqueWords.service;
 
 import com.uniqueWords.uniqueWords.entity.Word;
-import com.uniqueWords.uniqueWords.util.URL;
 import com.uniqueWords.uniqueWords.util.WordsCounter;
-import org.jsoup.Jsoup;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.io.UrlResource;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
