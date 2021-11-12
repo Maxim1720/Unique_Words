@@ -40,7 +40,7 @@ public class WordsCounter {
     }
 
     private void init() throws IOException {
-        htmlDocument = connection.get();
+        htmlDocument = connection.ignoreHttpErrors(true).get();
         textSplitter = new TextSplitter(htmlDocument.body().text());
         words = new ArrayList<>();
         wordsMap = new HashMap<>();
