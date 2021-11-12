@@ -16,7 +16,7 @@ public class Word {
 
     @NotNull(message = "url can't be null")
     @JsonIgnore
-    @Column(name = "url_page", nullable = false)
+    @Column(name = "url_page", nullable = false, length = 1200)
     private char[] url;
 
     public String getText() {
