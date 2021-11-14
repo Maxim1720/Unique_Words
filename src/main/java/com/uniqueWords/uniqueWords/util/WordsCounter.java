@@ -58,17 +58,6 @@ public class WordsCounter {
         }
     }
 
-    private void fill()
-    {
-        for (String str: wordsMap.keySet()) {
-            Word w = new Word();
-            w.setUrl(url.toCharArray());
-            w.setText(str);
-            w.setCount(wordsMap.get(str));
-
-            words.add(w);
-        }
-    }
 
 
 
