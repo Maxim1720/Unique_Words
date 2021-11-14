@@ -1,51 +1,35 @@
 package com.uniqueWords.uniqueWords.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
-@Entity
 @Table(name = "word")
+@Entity
 public class Word {
-
+    @JsonIgnore
+    @Getter
     @Id
-    @GeneratedValue(generator = "wordSeqPK")
-    @Column(name = "id_word", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @NotNull(message = "url can't be null")
     @JsonIgnore
-    @Column(name = "url_page", nullable = false, length = 1200)
-    private char[] url;
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "value_url")
+    @Getter
+    @Setter
+    private Url url;
 
-    public String getText() {
-        return text;
-    }
+    @Getter
+    @Setter
+    @Column(name = "amount")
+    private Integer amount;
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    @Column(name = "text")
-    String text;
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    @Column(name = "count")
-    private int count;
-
-    public char[] getUrl() {
-        return url;
-    }
-
-    public void setUrl(char[] url) {
-        this.url = url;
-    }
+    @Getter
+    @Setter
+    @Column(name = "text", length = 50)
+    private String text;
 }
