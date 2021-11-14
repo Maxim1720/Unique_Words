@@ -18,7 +18,7 @@ public class TextSplitter {
         textMatcher = corrWordsRep.matcher(text);
     }
 
-    public String[] split()
+    public String[] splitIntoWords()
     {
         ArrayList<String> tempStrs = new ArrayList<>();
         while (textMatcher.find())
