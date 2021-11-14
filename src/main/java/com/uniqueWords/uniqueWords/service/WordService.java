@@ -2,20 +2,19 @@ package com.uniqueWords.uniqueWords.service;
 
 import com.uniqueWords.uniqueWords.entity.Word;
 import com.uniqueWords.uniqueWords.repository.WordRep;
+import com.uniqueWords.uniqueWords.util.Page;
 import com.uniqueWords.uniqueWords.util.WordsCounter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 
 @Service
 class WordService {
 
-    WordRep wordRep;
-
-    WordsCounter wordsCounter;
+    private WordRep wordRep;
+    private WordsCounter wordsCounter;
 
     @Autowired
     public WordService(WordRep wordRep){
