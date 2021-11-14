@@ -44,4 +44,9 @@ class WordService {
     public void save(Word word) {
         wordRep.save(word);
     }
+
+    public void saveAll(Set<Word> words) {
+        wordRep.saveAll(words);
+    }
+
 }
