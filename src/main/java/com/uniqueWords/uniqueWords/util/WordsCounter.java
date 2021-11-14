@@ -39,11 +39,6 @@ public class WordsCounter {
         connection = Jsoup.connect(url);
     }
 
-    private void init() throws IOException {
-        htmlDocument = connection.ignoreHttpErrors(true).get();
-        textSplitter = new TextSplitter(htmlDocument.body().text());
-        words = new ArrayList<>();
-        wordsMap = new HashMap<>();
     }
 
     private void calculateUniques()
