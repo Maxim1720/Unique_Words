@@ -25,13 +25,7 @@ class WordService {
         wordRep.save(word);
     }
 
-    public void delete(char[] url) {
-        //wordRep.deleteById(url);
-    }
-
-    public void saveAll(Set<Word> words) {
-        wordRep.saveAll(words);
-    }
+    public Set<Word> getByUrl(String url) throws IOException {
 
     public List<Word> getAllByUrl(char[] url) throws IOException {
 
