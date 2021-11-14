@@ -19,10 +19,6 @@ class WordService {
     @Autowired
     public WordService(WordRep wordRep){
         this.wordRep = wordRep;
-        wordsCounter = new WordsCounter();
-    }
-    public void save(Word word) {
-        wordRep.save(word);
     }
 
     public Set<Word> getByUrl(String url) throws IOException {
