@@ -35,7 +35,8 @@ class WordService {
         return words;
     }
 
-    private boolean urlExists(char[] url)
+
+    public boolean exists(String url)
     {
         return !wordRep.findByUrl(url).isEmpty();
     }
