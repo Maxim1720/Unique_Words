@@ -11,8 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class WordService {
-
+class WordService {
 
     WordRep wordRep;
 
