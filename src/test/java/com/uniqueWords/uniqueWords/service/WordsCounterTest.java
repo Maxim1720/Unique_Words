@@ -1,6 +1,7 @@
 package com.uniqueWords.uniqueWords.service;
 
 import com.uniqueWords.uniqueWords.entity.Word;
+import com.uniqueWords.uniqueWords.util.Page;
 import com.uniqueWords.uniqueWords.util.WordsCounter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,11 +11,10 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-//@SpringBootTest
 class WordsCounterTest {
 
     WordsCounter wordsCounter;
-    String url = "http://vk.com/";
+    String url = "https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%BE%D1%82%D0%BE%D0%BA%D0%BE%D0%BB_%D0%BF%D0%B5%D1%80%D0%B5%D0%B4%D0%B0%D1%87%D0%B8_%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85";
 
     @BeforeEach
     public void init()
@@ -24,42 +24,43 @@ class WordsCounterTest {
 
     @Test
     void setUrl() {
-        wordsCounter = new WordsCounter(url);
+        Assertions.assertDoesNotThrow(()->wordsCounter = new WordsCounter(url));
     }
 
     @Test
     void count() {
-        try {
-            for (Word w:
-                 wordsCounter.count()) {
-                System.out.println(w.getText()+":"+w.getCount());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        Assertions.assertDoesNotThrow(this::tryCount);
+    }
+
+    void tryCount(){
+        for (Word w:
+                wordsCounter.get()) {
+            System.out.println(w.getText()+":"+w.getAmount());
         }
     }
+
 
     @Test
     void testOnConnecting() {
 
         Assertions.assertDoesNotThrow(()->connect("https://downdetector.ru/"));
         Assertions.assertDoesNotThrow(()->connect("https://github.com/"));
-        Assertions.assertDoesNotThrow(()->connect("https://www.my-chords.net/pornofilmy/127311-pornofilmy-uzhoe-gore.html"));
         Assertions.assertDoesNotThrow(()->connect("https://www.youtube.com/"));
+        Assertions.assertDoesNotThrow(()->connect("https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%BE%D1%82%D0%BE%D0%BA%D0%BE%D0%BB_%D0%BF%D0%B5%D1%80%D0%B5%D0%B4%D0%B0%D1%87%D0%B8_%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85"));
     }
 
-    void connect(String url)
-    {
-        wordsCounter.setUrl(url);
-        wordsCounter.connect();
+    void connect(String url) throws IOException {
+        wordsCounter = new WordsCounter(url);
+        Page page = new Page(url);
     }
 
     @Test
     void testRegex()
     {
-        url = "http://dwa-ddd3-21234234w.com/";
+        url = "https://proglib.io/p/25-java-regex";
         Pattern pattern = Pattern.compile(
-                "^http://([a-z0-9]-?)+\\.([a-z0-9]{2,})/$");
+                "^[a-z]{3,5}://(\\p{Alnum}-?)+\\.(\\p{Alnum}{2,})([\\p{Alnum}/=?&_%.]-?)*$");
         Matcher matcher = pattern.matcher(url);
 
         while (matcher.find())
