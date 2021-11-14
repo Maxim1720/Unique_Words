@@ -38,6 +38,10 @@ class WordService {
 
     public boolean exists(String url)
     {
-        return !wordRep.findByUrl(url).isEmpty();
+        return wordRep.findFirst1ByUrl_ValueEqualsIgnoreCase(url).isPresent();
+    }
+
+    public void save(Word word) {
+        wordRep.save(word);
     }
 }
