@@ -1,56 +1,57 @@
 package com.uniqueWords.uniqueWords.util;
 
 import com.uniqueWords.uniqueWords.entity.Word;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import java.io.IOException;
+
 import java.util.*;
 
 public class WordsCounter {
 
-    private String url;
-    private TextSplitter textSplitter;
-    private Document htmlDocument;
-    private List<Word> words;
-    private HashMap<String, Integer> wordsMap;
-    private Connection connection;
+    private String[] allWords;
+    private Set<Word> words;
 
-    public WordsCounter(){}
-    public WordsCounter(String url){
-        this.url = url;
-    }
-
-    public void setUrl(String url)
+    public WordsCounter(String text)
     {
-        this.url = url;
+        allWords = new TextSplitter(text).splitIntoWords();
     }
-
-    public List<Word> count() throws IOException {
-        connect();
-        init();
-        calculateUniques();
-        fill();
+    public Set<Word> get()
+    {
+        calculate();
         return words;
     }
 
-    public void connect()
+
+    private void calculate()
     {
-        connection = Jsoup.connect(url);
-    }
+        words = new HashSet<>();
+
+        HashMap<String, Integer> hm = calculatedWordsInHashMap();
+
+        for (String w:
+             hm.keySet()) {
+            Word word = new Word();
+            word.setAmount(hm.get(w));
+            word.setText(w);
+            words.add(word);
+        }
 
     }
 
-    private void calculateUniques()
+    private HashMap<String,Integer> calculatedWordsInHashMap()
     {
-        for (String str:
-                textSplitter.split()) {
-            if (wordsMap.containsKey(str)) {
-                wordsMap.replace(str, wordsMap.get(str) + 1);
-            } else {
-                wordsMap.put(str, 1);
+        HashMap<String,Integer> wordsHashMap = new HashMap<>();
+
+        for (String w:
+                allWords) {
+            if(wordsHashMap.containsKey(w))
+            {
+                wordsHashMap.replace(w,wordsHashMap.get(w)+1);
+            }
+            else
+            {
+                wordsHashMap.put(w,1);
             }
         }
+        return wordsHashMap;
     }
 
 
