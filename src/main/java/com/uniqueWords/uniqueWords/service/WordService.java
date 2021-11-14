@@ -27,19 +27,14 @@ class WordService {
 
     public Set<Word> getByUrl(String url) throws IOException {
 
-    public List<Word> getAllByUrl(char[] url) throws IOException {
-
-        List<Word> words;
-
-        if(urlExists(url))
+        wordsCounter = new WordsCounter(new Page(url).text());
+        Set<Word> words;
+        if(exists(url))
         {
-            words = wordRep.findByUrl(url);
+            words = wordRep.findAllByUrlValue(url);
         }
-        else
-        {
-            wordsCounter.setUrl(String.valueOf(url));
-            words = wordsCounter.count();
-            wordRep.saveAll(words);
+        else{
+            words = wordsCounter.get();
         }
         return words;
     }
