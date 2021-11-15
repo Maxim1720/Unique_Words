@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 
+import java.io.*;
 import java.util.List;
 
 @SpringBootTest
@@ -29,29 +30,34 @@ class UniqueWordsControllerTest {
     @Autowired
     ObjectMapper objectMapper;
 
-    String url;
+    File pages;
+    BufferedReader fileReader;
 
     @BeforeEach
-    private void init()
-    {
-        url = "https://simbirsoft.ru/";
+    private void init() throws FileNotFoundException {
+        pages = new File("src/main/resources/static/web_pages");
+        fileReader = new BufferedReader(new FileReader(pages));
     }
 
     @Test
     void get() throws Exception {
 
-        MvcResult mvcResult = mockMvc.perform(
-                MockMvcRequestBuilders.get("/unique_words/").
-                        param("url", url)
-        ).andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+        while (fileReader.ready())
+        {
+            String line = fileReader.readLine();
+            MvcResult mvcResult = mockMvc.perform(
+                    MockMvcRequestBuilders.get("/unique_words/").
+                            param("url", line)
+            ).andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+            System.out.println(line);
+        }
 
-        String responseContent = mvcResult.getResponse().getContentAsString();
-        List<Word> words = objectMapper.readValue(responseContent,
-                new TypeReference<>() {});
-
-        for (Word w:
+        /*String responseContent = mvcResult.getResponse().getContentAsString();
+            List<Word> words = objectMapper.readValue(responseContent,
+                    new TypeReference<>() {});*/
+        /*for (Word w:
              words) {
             System.out.println(w.getText() + ":" + w.getAmount());
-        }
+        }*/
     }
 }

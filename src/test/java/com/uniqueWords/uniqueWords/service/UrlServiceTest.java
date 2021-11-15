@@ -15,7 +15,8 @@ class UrlServiceTest {
 
     @Test
     void save() {
-        Url url = new Url(this.url);
+        Url url = new Url();
+        url.setValue(this.url);
         urlService.save(url);
     }
 
