@@ -13,6 +13,7 @@ public class MainService {
 
     private final UrlService urlService;
     private final WordService wordService;
+    private final WordsCounterService wordsCounterService;
 
     private Url url;
     private Set<Word> words;
@@ -20,22 +21,24 @@ public class MainService {
     @Autowired
     public MainService(
             UrlService urlService,
-            WordService wordService){
+            WordService wordService,
+            WordsCounterService wordsCounterService){
         this.urlService = urlService;
         this.wordService = wordService;
+        this.wordsCounterService = wordsCounterService;
     }
 
     public Set<Word> getWords(String url) throws IOException {
 
-        words = wordService.getByUrl(url);
-
-        if (!urlExists(url)) {
+        if (wordService.exists(url)) {
+            words = wordService.getByUrl(url);
+        } else {
+            words = wordsCounterService.getByUrl(url);
             createUrl(url);
             setWordsToUrl();
             setUrlToWords();
             saveUrlAndWords();
         }
-
         return words;
     }
 
@@ -64,6 +67,5 @@ public class MainService {
     {
         urlService.save(url);
         wordService.saveAll(words);
-
     }
 }
