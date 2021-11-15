@@ -13,26 +13,15 @@ import java.util.Set;
 @Service
 class WordService {
 
-    private WordRep wordRep;
-    private WordsCounter wordsCounter;
+    private final WordRep wordRep;
 
     @Autowired
     public WordService(WordRep wordRep){
         this.wordRep = wordRep;
     }
 
-    public Set<Word> getByUrl(String url) throws IOException {
-
-        wordsCounter = new WordsCounter(new Page(url).text());
-        Set<Word> words;
-        if(exists(url))
-        {
-            words = wordRep.findAllByUrlValue(url);
-        }
-        else{
-            words = wordsCounter.get();
-        }
-        return words;
+    public Set<Word> getByUrl(String url) {
+        return wordRep.findAllByUrlValue(url);
     }
 
 
@@ -48,5 +37,15 @@ class WordService {
     public void saveAll(Set<Word> words) {
         wordRep.saveAll(words);
     }
+
+    public void delete(Word word)
+    {
+        wordRep.delete(word);
+    }
+    public void delete(Long id)
+    {
+        wordRep.deleteById(id);
+    }
+
 
 }
