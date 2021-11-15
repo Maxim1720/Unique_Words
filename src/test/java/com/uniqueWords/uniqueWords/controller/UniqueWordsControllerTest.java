@@ -2,7 +2,6 @@ package com.uniqueWords.uniqueWords.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uniqueWords.uniqueWords.correctObjects.URL;
 import com.uniqueWords.uniqueWords.entity.Word;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,6 @@ import java.util.List;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-//@WebMvcTest
 class UniqueWordsControllerTest {
 
     @Autowired
@@ -31,13 +29,12 @@ class UniqueWordsControllerTest {
     @Autowired
     ObjectMapper objectMapper;
 
-    URL url;
+    String url;
 
     @BeforeEach
     private void init()
     {
-        url = new URL();
-        url.setUrl("https://simbirsoft.ru/");
+        url = "https://simbirsoft.ru/";
     }
 
     @Test
@@ -45,9 +42,7 @@ class UniqueWordsControllerTest {
 
         MvcResult mvcResult = mockMvc.perform(
                 MockMvcRequestBuilders.get("/unique_words/").
-                        param("url", url.getUrl())
-                        /*content(objectMapper.writeValueAsBytes(url.getUrl())).
-                        contentType(MediaType.APPLICATION_JSON)*/
+                        param("url", url)
         ).andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
 
         String responseContent = mvcResult.getResponse().getContentAsString();
